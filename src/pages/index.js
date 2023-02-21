@@ -1,8 +1,8 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import { Inter } from '@next/font/google';
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "@next/font/google";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
@@ -14,19 +14,21 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <header>
+      <main className="h-screen w-screen flex flex-col bg-custom--r-quaternary gap-[.5px]">
+        <header className="bg-custom--r-tertiary w-full h-full basis-1/12"></header>
 
-        </header>
+        <main className="grow flex gap-[.5px]">
+          <section className="bg-custom--r-primary basis-1/5 flex flex-col justify-between">
+            <section className="grow"></section>
 
-        <main className="bg-red-500 w-screen h-screen">
-          <p className="text-red-400">asd</p>
+            <section className="bg-custom--r-septuagenarian basis-[7%]"></section>
+          </section>
+
+          <section className="bg-custom--r-secondary grow"></section>
         </main>
 
-        <footer>
-
-        </footer>
+        <footer className="basis-[7%] bg-custom--r-primary"></footer>
       </main>
     </>
-  )
+  );
 }
