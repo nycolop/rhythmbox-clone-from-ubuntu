@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [radioStations, setRadioStations] = useState([]);
-  const [currentRadioId, setCurrentRadioId] = useState(0);
+  const [currentRadio, setCurrentRadio] = useState(0);
   const player = useRef(null);
 
   useEffect(() => {
@@ -15,16 +15,6 @@ export default function Home() {
       .then((res) => setRadioStations(res))
       .catch((err) => console.error(err));
   }, []);
-
-  useEffect(() => {
-    if (!currentRadioId) return;
-
-    const radioStation = radioStations.find(
-      (rStation) => currentRadioId === rStation.id
-    );
-
-    player.current.src = radioStation.source;
-  }, [currentRadioId, radioStations]);
 
   return (
     <>
@@ -133,10 +123,10 @@ export default function Home() {
               {radioStations.map((rStation) => (
                 <tr
                   className={`cursor-pointer ${
-                    currentRadioId === rStation.id && "bg-custom--r-secondary"
+                    currentRadio.id === rStation.id && "bg-custom--r-secondary"
                   }`}
                   key={rStation.id}
-                  onClick={() => setCurrentRadioId(rStation.id)}
+                  onClick={() => setCurrentRadioId(rStation)}
                 >
                   <td>{rStation.title}</td>
                   <td>{rStation.genre}</td>
@@ -147,7 +137,7 @@ export default function Home() {
         </main>
 
         <footer className="basis-[7%] bg-custom--r-b-primary">
-          <audio src="" autoPlay ref={player} controls></audio>
+          <audio src={currentRadio.source} autoPlay controls></audio>
         </footer>
       </main>
     </>
