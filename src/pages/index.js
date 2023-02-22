@@ -125,7 +125,7 @@ export default function Home() {
                     currentRadio.id === rStation.id && "bg-custom--r-secondary"
                   }`}
                   key={rStation.id}
-                  onClick={() => setCurrentRadioId(rStation)}
+                  onClick={() => setCurrentRadio(rStation)}
                 >
                   <td>{rStation.title}</td>
                   <td>{rStation.genre}</td>
