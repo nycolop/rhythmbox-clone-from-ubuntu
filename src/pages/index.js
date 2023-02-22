@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { fetchRadioStations } from "@/services";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -8,7 +8,6 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const [radioStations, setRadioStations] = useState([]);
   const [currentRadio, setCurrentRadio] = useState(0);
-  const player = useRef(null);
 
   useEffect(() => {
     fetchRadioStations()
