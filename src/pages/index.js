@@ -111,10 +111,11 @@ export default function Home() {
           </section>
 
           <table className="bg-custom--r-b-secondary grow">
-            <thead>
+            <thead className="text-left text-[#8F8F8F]">
               <tr>
-                <th>Title</th>
-                <th>Genre</th>
+                <th className="text-center border-l border-b border-custom--r-b-primary">M</th>
+                <th className="pl-2 border-l border-b border-custom--r-b-primary">Title</th>
+                <th className="pl-2 border-l border-b border-custom--r-b-primary">Genre</th>
               </tr>
             </thead>
 
@@ -127,8 +128,9 @@ export default function Home() {
                   key={rStation.id}
                   onClick={() => setCurrentRadio(rStation)}
                 >
-                  <td>{rStation.title}</td>
-                  <td>{rStation.genre}</td>
+                  <td></td>
+                  <td className="pl-2">{rStation.title}</td>
+                  <td className="pl-2">{rStation.genre}</td>
                 </tr>
               ))}
             </tbody>
