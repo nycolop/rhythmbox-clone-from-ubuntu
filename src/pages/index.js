@@ -8,11 +8,38 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const [radioStations, setRadioStations] = useState([]);
   const [currentRadio, setCurrentRadio] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  const initialLoad = async () => {
+    try {
+      const radioStations = await fetchRadioStations();
+
+      for (let i = 0; i < radioStations.length; i++) {
+        try {
+          const checkRadio = await fetch(radioStations[i].source);
+
+          if (!checkRadio.ok) {
+            radioStations[i].available = false;
+            console.log(radioStations[i].title, checkRadio);
+          } else {
+            console.log(radioStations[i].title, checkRadio);
+          }
+        } catch (err) {
+          console.log(radioStations[i].title, err);
+          radioStations[i].available = false;
+        }
+      }
+
+      setRadioStations(radioStations);
+    } catch (err) {
+      console.error("An error ocurred on initial load of the app: ", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    fetchRadioStations()
-      .then((res) => setRadioStations(res))
-      .catch((err) => console.error(err));
+    initialLoad();
   }, []);
 
   return (
@@ -98,6 +125,17 @@ export default function Home() {
         />
       </Head>
 
+      {loading ? (
+        <div
+          id="loading-screen"
+          className="absolute w-screen h-screen bg-[rgba(24,24,27,0.95)] top-0 left-0 z-50 flex justify-center items-center"
+        >
+          <h1 className="text-white text-4xl font-bold">
+            Loading app, please wait.
+          </h1>
+        </div>
+      ) : null}
+
       <main
         className={`${inter.className} h-screen w-screen flex flex-col bg-custom--r-b-quaternary gap-[.5px] text-white`}
       >
@@ -113,9 +151,15 @@ export default function Home() {
           <table className="bg-custom--r-b-secondary grow">
             <thead className="text-left text-[#8F8F8F]">
               <tr>
-                <th className="text-center border-l border-b border-custom--r-b-primary">M</th>
-                <th className="pl-2 border-l border-b border-custom--r-b-primary">Title</th>
-                <th className="pl-2 border-l border-b border-custom--r-b-primary">Genre</th>
+                <th className="text-center border-l border-b border-custom--r-b-primary">
+                  M
+                </th>
+                <th className="pl-2 border-l border-b border-custom--r-b-primary">
+                  Title
+                </th>
+                <th className="pl-2 border-l border-b border-custom--r-b-primary">
+                  Genre
+                </th>
               </tr>
             </thead>
 
@@ -124,7 +168,7 @@ export default function Home() {
                 <tr
                   className={`cursor-pointer ${
                     currentRadio.id === rStation.id && "bg-custom--r-secondary"
-                  }`}
+                  } ${!rStation.available && "opacity-10"}`}
                   key={rStation.id}
                   onClick={() => setCurrentRadio(rStation)}
                 >

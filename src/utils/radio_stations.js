@@ -77,7 +77,8 @@ const radioStations = [
 ];
 
 for (let i = 0; i < radioStations.length; i++) {
-  radioStations[0].id = i + 1;
+  radioStations[i].id = i + 1;
+  radioStations[i].available = true;
 }
 
 export default radioStations;
