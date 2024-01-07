@@ -10,6 +10,7 @@ module.exports = {
         "custom--r-b-quaternary": "#181818",
         "custom--r-b-septuagenarian": "#262626",
         "custom--r-secondary": "#E95420",
+        "custom--r-alt": "#373737",
       },
     },
   },
